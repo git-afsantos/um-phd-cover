@@ -1,0 +1,235 @@
+\documentclass{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[english,portuguese]{babel}
+\usepackage{geometry}
+\usepackage[dvipsnames,rgb,table]{xcolor}
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage{ifpdf}
+\usepackage{ifxetex}
+\usepackage{ifluatex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Fonts
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifthenelse%
+{\boolean{xetex}\OR\boolean{luatex}}
+{
+    \usepackage{fontspec}
+    \setmainfont[
+        Extension = .ttf ,
+        UprightFont = *-regular ,
+        BoldFont = *-bold ,
+        AutoFakeSlant = 0.3,
+     ]{newsgott}
+}
+{
+    \usepackage{helvet}
+    \renewcommand{\familydefault}{\sfdefault}
+    \renewcommand{\seriesdefault}{c}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Cover Dimensions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\geometry{
+paperwidth=433mm,   % 210mm + 13mm + 210mm
+paperheight=297mm,
+top=0cm,
+bottom=0cm,
+left=0cm,
+right=0cm
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Useful Definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setlength{\parindent}{0pt}
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\hbadness=10000
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Color Definitions
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\definecolor{um}{rgb}{0.686,0.126,0.106}
+\definecolor{eng}{cmyk}{0.14,0.71,1,0.03}
+\definecolor{grey}{rgb}{0.6,0.6,0.6}
+\definecolor{pantone1807}{rgb}{0.643,0.204,0.227}
+\definecolor{lightGray}{gray}{0.92}
+\definecolor{verylightgray}{cmyk}{0,0,0,0.05}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Helpful Macros
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\myear{\ifcase\month\or
+ January\or February\or March\or April\or May\or June\or
+ July\or August\or September\or October\or November\or December\fi
+ \space\number\year}
+
+\newcommand{\printmapilogos}{%
+    \ifthenelse%
+    {\mapi=1}%
+    {%
+        {\fontsize{14}{16.8}\selectfont \color{white}
+            % Tese de Doutoramento\par
+            \textbf{Programa de Doutoramento em Informática}\par
+            \textbf{das Universidades do Minho, de Aveiro e do Porto}\par
+        }
+        \vskip 16.8pt
+        \begin{minipage}{10cm}
+            \raisebox{-0.5\height}{\includegraphics[width=30mm,keepaspectratio=true]{images/UA.pdf}}
+            \hskip 7mm
+            \raisebox{-0.6\height}{\includegraphics[width=25mm,keepaspectratio=true]{images/UM.pdf}}
+            \hskip 5mm
+            \raisebox{-0.5\height}{\includegraphics[width=30mm,keepaspectratio=true]{images/UP.pdf}}
+        \end{minipage}%
+    }{\relax}%
+}
+
+\makeatletter
+\def\maxwidth#1{\ifdim\Gin@nat@width>#1 #1\else\Gin@nat@width\fi}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Back Cover
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\backcover}{%
+\begin{minipage}[t][287mm]{210mm}%
+    \vspace{0pt}
+    \color{white}
+    \vfill
+    \centering
+    {\fontsize{10}{12}\selectfont \color{white} \printfunding\par}
+    \printfundinglogos
+\end{minipage}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Front Cover
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\frontcover}{%
+\begin{minipage}[t][287mm]{79mm}%
+    \vspace{0pt}
+    \mbox{}
+\end{minipage}%
+\begin{minipage}[t]{111mm}%
+    \vspace{0pt}
+    \begin{minipage}[t][90mm]{111mm}%   top box: University logo
+        % 277px 70.42mm logo
+        % 497px 126.3mm height
+        % 0.3692 scale
+        \includegraphics[scale=0.36959,keepaspectratio=true]{images/UM-EE.pdf}\\
+        {\fontsize{14}{16.8}\selectfont \color{white}
+            \printdepartment\par
+        }
+    \end{minipage}\\[-1pt]%
+    \begin{minipage}[t][90mm]{111mm}%   middle box: Author and Thesis title
+        {\fontsize{17}{20.4}\selectfont \color{white}
+            \raggedright
+            \printauthor\par
+            \vspace{\baselineskip}
+            \textbf{\printtitle}\par
+        }
+    \end{minipage}\\[-1pt]%
+    \begin{minipage}[t][107mm]{111mm}%  bottom box: partner Universities and date
+        \printmapilogos
+        \vfill
+        {\fontsize{10}{12}\selectfont \color{white} \printdate\par}
+    \end{minipage}%
+\end{minipage}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Cover Spine
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\coverspine}{%
+\begin{minipage}[t][287mm]{13mm}%
+    \color{white}
+    \vspace{0pt}
+    \begin{minipage}[t][90mm]{13mm}%    top box: University logo
+        \includegraphics[width=13mm,keepaspectratio=true]{images/v-UM-EE.pdf}
+    \end{minipage}\\%
+    {\centering \fontsize{12}{14.4}\selectfont
+        \rotatebox[origin=c]{90}{\parbox[c][13mm]{90mm}{\raggedright \textbf{\printtitle}}}\par}
+    \vspace{3mm}
+    {\centering \fontsize{12}{14.4}\selectfont
+        \rotatebox[origin=c]{90}{\printauthorshort}\par}
+    \vfill
+    {\centering \fontsize{10}{12}\selectfont
+        \rotatebox[origin=b]{90}{UMinho | \number\year}\par}
+\end{minipage}%
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Variables - EDIT THESE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\gdef\mapi{1} % set to 1 if the PhD programme is MAP-i
+
+\makeatletter
+\gdef\@date{\myear}
+\gdef\@author{André Filipe Faria dos Santos}
+\gdef\@authorshort{\@author} % short name for cover spine if needed
+\gdef\@title{Título Título Título Título Título Título
+Título Título Título Título Título
+Título Título Título Título}
+\gdef\@department{Departamento de Informática} % [optional] leave empty if not desired
+\gdef\@phddegree{Programa de Doutoramento em Informática}
+\gdef\@phdspec{Área de Especialização}
+\gdef\@funding{
+This work is financed by the ERDF – European Regional Development Fund through the Operational Programme for Competitiveness and Internationalisation - COMPETE 2020 Programme and by National Funds through the Portuguese funding agency, FCT - Fundação para a Ciência e a Tecnologia within project PTDC/CCI-INF/29583/2017 (POCI-01-0145-FEDER-029583).
+} % [optional] funding acknowledgement
+\gdef\@fundinglogos{images/SAFER.pdf} % [optional] path to image with logos (e.g., FCT, Erasmus, etc.)
+
+\def\printdate{\@date}
+\def\printauthor{\@author}
+\def\printauthorshort{\@authorshort}
+\def\printtitle{\@title}
+\def\printdepartment{\@department}
+\def\printphddegree{\@phddegree}
+\def\printphdspec{\@phdspec}
+\def\printfunding{\@funding}
+
+\newcommand{\printfundinglogos}{%
+    \ifthenelse%
+    {\equal{\@fundinglogos}{}}%
+    {\mbox{}}%
+    {\vskip 16.8pt \includegraphics[width=\maxwidth{170mm}]{\@fundinglogos}}%
+}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\setlength{\topskip}{0pt}
+\setlength\fboxsep{0pt}
+
+\thispagestyle{empty}
+\pagecolor{grey}
+
+\noindent
+\backcover%
+\coverspine%
+\frontcover%
+\clearpage
+
+\thispagestyle{empty}
+\pagecolor{pantone1807}
+\mbox{}
+
+\end{document}
