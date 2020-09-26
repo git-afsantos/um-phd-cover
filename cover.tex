@@ -63,8 +63,6 @@ right=0cm
 \definecolor{eng}{cmyk}{0.14,0.71,1,0.03}
 \definecolor{grey}{rgb}{0.6,0.6,0.6}
 \definecolor{pantone1807}{rgb}{0.643,0.204,0.227}
-\definecolor{lightGray}{gray}{0.92}
-\definecolor{verylightgray}{cmyk}{0,0,0,0.05}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Helpful Macros
@@ -81,7 +79,7 @@ right=0cm
     {%
         {\fontsize{14}{16.8}\selectfont \color{white}
             % Tese de Doutoramento\par
-            \textbf{Programa de Doutoramento em Informática}\par
+            \textbf{\printphddegree}\par
             \textbf{das Universidades do Minho, de Aveiro e do Porto}\par
         }
         \vskip 16.8pt
@@ -129,7 +127,7 @@ right=0cm
         % 277px 70.42mm logo
         % 497px 126.3mm height
         % 0.3692 scale
-        \includegraphics[scale=0.36959,keepaspectratio=true]{images/UM-EE.pdf}\\
+        \printschool\\
         {\fontsize{14}{16.8}\selectfont \color{white}
             \printdepartment\par
         }
@@ -159,7 +157,7 @@ right=0cm
     \color{white}
     \vspace{0pt}
     \begin{minipage}[t][90mm]{13mm}%    top box: University logo
-        \includegraphics[width=13mm,keepaspectratio=true]{images/v-UM-EE.pdf}
+        \printschoolv
     \end{minipage}\\%
     {\centering \fontsize{12}{14.4}\selectfont
         \rotatebox[origin=c]{90}{\parbox[c][13mm]{90mm}{\raggedright \textbf{\printtitle}}}\par}
@@ -176,27 +174,61 @@ right=0cm
 % Variables - EDIT THESE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\gdef\mapi{1} % set to 1 if the PhD programme is MAP-i
+% set to 1 if the PhD programme is MAP; leave as 0 for UM courses
+\gdef\mapi{1}
 
 \makeatletter
+% replace with a specific month/date if needed
 \gdef\@date{\myear}
-\gdef\@author{André Filipe Faria dos Santos}
-\gdef\@authorshort{\@author} % short name for cover spine if needed
-\gdef\@title{Título Título Título Título Título Título
-Título Título Título Título Título
-Título Título Título Título}
-\gdef\@department{Departamento de Informática} % [optional] leave empty if not desired
+
+\gdef\@author{Your Full Name Goes Here}
+
+% short name for cover spine if needed
+\gdef\@authorshort{\@author}
+
+% longer titles need adjustment for the cover spine
+\gdef\@title{Your Thesis Title Can Be Relatively Long --
+In Fact, It Can Be About As Long As This Title}
+
+% choose one of the following
+% EA    - Escola de Arquitetura
+% EC    - Escola de Ciências
+% ED    - Escola de Direito
+% EE    - Escola de Engenharia
+% EEG   - Escola de Economia e Gestão
+% EM    - Escola de Medicina
+% EP    - Escola de Psicologia
+% ESE   - Escola Superior de Enfermagem
+% ICS   - Instituto de Ciências Sociais
+% IE    - Instituto de Educação
+% IIBBB - Instituto de Investigação em Biomateriais, Biodegradáveis e Biomiméticos
+% ILCH  - Instituto de Letras e Ciências Humanas
+\gdef\@school{EE}
+
+% [optional] leave empty if not desired
+\gdef\@department{Departamento de Informática}
+
+% normal PhD courses do not require this info; MAP courses do
 \gdef\@phddegree{Programa de Doutoramento em Informática}
 \gdef\@phdspec{Área de Especialização}
-\gdef\@funding{
-This work is financed by the ERDF – European Regional Development Fund through the Operational Programme for Competitiveness and Internationalisation - COMPETE 2020 Programme and by National Funds through the Portuguese funding agency, FCT - Fundação para a Ciência e a Tecnologia within project PTDC/CCI-INF/29583/2017 (POCI-01-0145-FEDER-029583).
-} % [optional] funding acknowledgement
-\gdef\@fundinglogos{images/SAFER.pdf} % [optional] path to image with logos (e.g., FCT, Erasmus, etc.)
+
+% [optional] funding acknowledgement; leave empty if n/a
+\gdef\@funding{}
+
+% [optional] path to image with logos (e.g., FCT, Erasmus, etc.)
+\gdef\@fundinglogos{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% More Utility Macros
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \def\printdate{\@date}
 \def\printauthor{\@author}
 \def\printauthorshort{\@authorshort}
 \def\printtitle{\@title}
+\def\printschool{\includegraphics[scale=0.36959,keepaspectratio=true]{images/UM-\@school.pdf}}
+\def\printschoolv{\includegraphics[width=13mm,keepaspectratio=true]{images/v-UM-\@school.pdf}}
 \def\printdepartment{\@department}
 \def\printphddegree{\@phddegree}
 \def\printphdspec{\@phdspec}
