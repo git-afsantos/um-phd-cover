@@ -54,7 +54,7 @@ For instance, your full name can be inserted in the variable that reads:
 
 This template covers the association programmes of Minho-Aveiro-Porto as well.
 Simply change the line that reads `\gdef\mapi{0}` to `\gdef\mapi{1}`.
-Your cover will now include all the requires University logos at the front.
+Your cover will now include all the required University logos at the front.
 
 #### Multiple Organic Units
 
